@@ -13,7 +13,11 @@ class Usuario:
     @property
     def id(self):
         return self._id
-                
+    
+    @id.setter
+    def id(self, novo_id):
+        self._id = novo_id
+    
     @property
     def nome(self):
         return self._nome
@@ -45,5 +49,5 @@ class Usuario:
     @staticmethod
     def from_string(string):
         # Cria um objeto Usuario de uma string
-        id, nome, email, tipo_usuario = string.split(";")
+        id, nome, email, tipo_usuario = string.strip().split(";")
         return Usuario(id, nome, email, tipo_usuario)

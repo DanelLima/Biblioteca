@@ -11,10 +11,17 @@ class Emprestimo:
         self._id_usuario = id_usuario
         self._data_devolucao = data_devolucao
         self._situacao = situacao
+        
+    def __str__(self):
+        return f"ID: {self._id} | Livro: {self._id_livro} | Usuário: {self._id_usuario} | Devolução: {self._data_devolucao} | Situação: {self._situacao}"
 
     @property
     def id(self):
         return self._id
+    
+    @id.setter
+    def id(self, novo_id):
+        self._id = novo_id
                 
     @property
     def id_livro(self):
@@ -55,5 +62,5 @@ class Emprestimo:
     @staticmethod
     def from_string(string):
         # Cria um objeto Emprestimo de uma string
-        id, id_livro, id_usuario, data_devolucao, situacao = string.split(";")
+        id, id_livro, id_usuario, data_devolucao, situacao = string.strip().split(";")
         return Emprestimo(id, id_livro, id_usuario, data_devolucao, situacao)

@@ -13,10 +13,17 @@ class Livro:
         self._ano_publicacao = ano_publicacao
         self._isbn = isbn
         self._categoria = categoria
+    
+    def __str__(self):
+        return f"ID: {self._id} | Título: {self._titulo} | Autor: {self._autor} | Ano De Publicação: {self._ano_publicacao} | ISBN: {self._isbn} | Categoria: {self._categoria}"
 
     @property
     def id(self):
         return self._id
+    
+    @id.setter
+    def id(self, novo_id):
+        self._id = novo_id
                 
     @property
     def titulo(self):
@@ -65,5 +72,5 @@ class Livro:
     @staticmethod
     def from_string(string):
         # Cria um objeto Livro de uma string
-        id, titulo, autor, ano_publicacao, isbn, categoria = string.split(";")
+        id, titulo, autor, ano_publicacao, isbn, categoria = string.strip().split(";")
         return Livro(id, titulo, autor, ano_publicacao, isbn, categoria)
