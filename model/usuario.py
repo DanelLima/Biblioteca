@@ -45,5 +45,5 @@ class Usuario:
     @staticmethod
     def from_string(string):
         # Cria um objeto Usuario de uma string
-        id, nome, email, tipo_usuario = string.strip().split(";")
+        id, nome, email, tipo_usuario = string.split(";")
         return Usuario(id, nome, email, tipo_usuario)

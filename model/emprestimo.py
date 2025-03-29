@@ -55,5 +55,5 @@ class Emprestimo:
     @staticmethod
     def from_string(string):
         # Cria um objeto Emprestimo de uma string
-        id, id_livro, id_usuario, data_devolucao, situacao = string.strip().split(";")
+        id, id_livro, id_usuario, data_devolucao, situacao = string.split(";")
         return Emprestimo(id, id_livro, id_usuario, data_devolucao, situacao)

@@ -65,5 +65,5 @@ class Livro:
     @staticmethod
     def from_string(string):
         # Cria um objeto Livro de uma string
-        id, titulo, autor, ano_publicacao, isbn, categoria = string.strip().split(";")
+        id, titulo, autor, ano_publicacao, isbn, categoria = string.split(";")
         return Livro(id, titulo, autor, ano_publicacao, isbn, categoria)
