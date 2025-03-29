@@ -5,9 +5,9 @@
 
 class Usuario:
     def __init__(self, id, nome, email, tipo_usuario):
-        self._nome = nome  # Usando underline para indicar atributo "privado"
+        self._id = id # Usar underline para indicar atributo "privado"
+        self._nome = nome  
         self._email = email
-        self._id = id
         self._tipo_usuario = tipo_usuario
 
     @property
@@ -44,6 +44,6 @@ class Usuario:
 
     @staticmethod
     def from_string(string):
-        # Cria um objeto Usuario a partir de uma string
+        # Cria um objeto Usuario de uma string
         id, nome, email, tipo_usuario = string.strip().split(";")
-        return Usuario(int(id), nome, email, tipo_usuario)
+        return Usuario(id, nome, email, tipo_usuario)
