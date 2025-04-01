@@ -11,6 +11,7 @@ from model.usuario import Usuario
 from controller.livro_controller import Livro_controller
 from model.livro import Livro
 from controller.relatorio_controller import Relatorio_controller
+from datetime import datetime, timedelta
 
 view_login = """
 
@@ -39,26 +40,29 @@ view_menu = """
     
     """
     
+acesso = ""
 
 def main():
+    
     print(view_login)
-    login = input()
     
-    os.system("cls")
-    
-    if login == "0":
-        cadastro_usuario()
+    if acesso == "":
+        login = input()
         
-    elif login == "1":
-        print("Aplicação encerrada!")
-        sys.exit()
+        os.system("cls")
         
-    else:
-        id, email = login.split()
+        if login == "0":
+            cadastro_usuario()
+            
+        elif login == "1":
+            print("Aplicação encerrada!")
+            sys.exit()
+            
+        else:
+            id, email = login.split()
+            usuario = Usuario_controller()
+            acesso = usuario.logar_usuario(id,email) #Retorna um objeto Usuario
         
-    usuario = Usuario_controller()
-    acesso = usuario.logar_usuario(id,email) #Retorna um objeto Usuario
-    
     while True:
         
         view_menu()
@@ -112,23 +116,34 @@ def cadastro_livro(acesso):
     os.system("cls")
     print("\n\nFaça login para acessar!\n\n")
     
-# fazer_emprestimo(acesso)
-# devolver_livro(acesso)
-# consultar_emprestimos(acesso)
+def fazer_emprestimo(acesso):
+    print('***************************************************** Emprestimo ****************************************************************')
+    id_livro = input("Digite o id do livro para fazer emprestimo: ")
+    data_atual = datetime.now()
+    data_futura = data_atual + timedelta(days=30)
+    data_futura = data_futura.strftime("%d/%m/%Y")
+    
+    emprestimo = Emprestimo_controller()
+    emprestar = emprestimo.emprestar(Emprestimo(0,id_livro,acesso.id,data_futura,"Emprestado"))
+    
+def devolver_livro(acesso):
+    print('***************************************************** Devolução ****************************************************************')
+    id_livro = input("Digite o id do livro devolvido: ")
+    emprestimo = Emprestimo_controller()
+    emprestar = emprestimo.devolucao(id_livro)
+    print(emprestar)
+    
+def consultar_emprestimos(acesso):
+    print('********************************************** Todos os Emprestimos ************************************************************')
+    emprestimo = Emprestimo_controller()
+    emprestimos = emprestimo.listar_emprestimos()
+    for i in emprestimos:
+        print(i)
+
+# cadastrar_livro(acesso)
 # pesquisar_livro()
 # escolher_relatorio()
 
 
 main()
 
-# emprestimo = Emprestimo_controller()
-# emprestar = emprestimo.emprestar(Emprestimo(0,1,3,"26/06/2025","Emprestado"))
-
-# print(emprestar)
-
-# emprestimos = emprestimo.listar_emprestimos()
-
-# for i in emprestimos:
-#     print(i)
-    
-# emprestimo.devolucao(2)
