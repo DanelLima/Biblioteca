@@ -10,7 +10,7 @@ from controller.usuario_controller import Usuario_controller
 from model.usuario import Usuario
 from controller.livro_controller import Livro_controller
 from model.livro import Livro
-from controller.relatorio_controller import Relatorio_controller
+from controller.relatorio_controller import ReportGenerator
 from datetime import datetime, timedelta
 
 view_login = """
@@ -44,9 +44,9 @@ acesso = ""
 
 def main():
     
-    print(view_login)
-    
     if acesso == "":
+        
+        print(view_login)
         login = input()
         
         os.system("cls")
@@ -65,7 +65,7 @@ def main():
         
     while True:
         
-        view_menu()
+        print(view_menu())
 
         opcao = input("Escolha uma opção: ")
 
@@ -101,8 +101,11 @@ def cadastro_usuario():
     nome = input("Digite nome:")
     email = input("Digite email:")
     tipo_usuario = input("Digite seu tipo de usuário (aluno/professor/visitante):")
-    resultado = cadastrar_usuario(nome,email,tipo_usuario)
+    
+    usuario = Usuario_controller()
+    resultado = usuario.cadastrar_usuario(nome,email,tipo_usuario)
     os.system("cls")
+    print(resultado)
     print("\n\nFaça login para acessar!\n\n")
     
 def cadastro_livro(acesso):
@@ -112,9 +115,11 @@ def cadastro_livro(acesso):
     ano_publicacao = input("Digite o ano de publicacao:")
     isbn = input("Digite o ISBN:")
     categoria = input("Digite a categoria:")
-    resultado = cadastrar_livro(titulo, autor, ano_publicacao, isbn, categoria)
+    
+    livro = Livro_controller()
+    resultado = livro.cadastrar_livro(titulo, autor, ano_publicacao, isbn, categoria)
     os.system("cls")
-    print("\n\nFaça login para acessar!\n\n")
+    print(resultado)
     
 def fazer_emprestimo(acesso):
     print('***************************************************** Emprestimo ****************************************************************')
@@ -124,26 +129,68 @@ def fazer_emprestimo(acesso):
     data_futura = data_futura.strftime("%d/%m/%Y")
     
     emprestimo = Emprestimo_controller()
-    emprestar = emprestimo.emprestar(Emprestimo(0,id_livro,acesso.id,data_futura,"Emprestado"))
+    resultado = emprestimo.emprestar(Emprestimo(0,id_livro,acesso.id,data_futura,"Emprestado"))
+    print(resultado)
     
 def devolver_livro(acesso):
     print('***************************************************** Devolução ****************************************************************')
     id_livro = input("Digite o id do livro devolvido: ")
+    
     emprestimo = Emprestimo_controller()
-    emprestar = emprestimo.devolucao(id_livro)
-    print(emprestar)
+    resultado = emprestimo.devolucao(id_livro)
+    print(resultado)
     
 def consultar_emprestimos(acesso):
     print('********************************************** Todos os Emprestimos ************************************************************')
+    
     emprestimo = Emprestimo_controller()
     emprestimos = emprestimo.listar_emprestimos()
     for i in emprestimos:
         print(i)
 
-# cadastrar_livro(acesso)
-# pesquisar_livro()
-# escolher_relatorio()
+def pesquisar_livro(acesso):
+    print('************************************************ Pesquisar livro ***************************************************************')
+    
+    while True:
+        opcao = input("Selecione qual pesquisa realizar (1: título / 2: autor / 3: categoria)")
 
+        if opcao == "1":
+            break
+        elif opcao == "2":
+            break
+        elif opcao == "3":
+            break
+        else:
+            print("Opção inválida! Tente novamente.")
+    descricao = input("Digite a pesquisa:")
+    
+    livro = Livro_controller()
+    resultado = livro.pesquisar_livro(tipo_pesquisa, descricao)
+    
+    os.system("cls")
+    print(resultado)
+    
+    
+def escolher_relatorio():
+    print('************************************************ Relatórios *****************************************************************')
+    while True:
+        opcao = input("""Escolha seu tipo de relatório :
+                      1 - Quantidade de livros por categoria;
+                      2 - Quantidade de empréstimos por tipo de usuário;
+                      3 - livros mais emprestados.
+                      """)
+
+        if opcao == "1":
+            break
+        elif opcao == "2":
+            break
+        elif opcao == "3":
+            break
+        else:
+            print("Opção inválida! Tente novamente.")
+
+        relatorio = ReportGenerator()
+        
 
 main()
 

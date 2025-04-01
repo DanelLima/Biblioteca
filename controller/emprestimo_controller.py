@@ -43,13 +43,11 @@ class Emprestimo_controller:
                 break  
 
         if not encontrado:
-            print(f"Nenhum empréstimo encontrado para o livro {id_livro}.")
-            return False
+            return f"Nenhum empréstimo encontrado para o livro {id_livro}."
 
         #Reescrever o arquivo atualizado
         with open(self.file_emprestimo, "w") as file:
             for i in range(len(emprestimos)):
                 file.write(emprestimos[i].to_string()+"\n")
-
-        print(f"Livro devolvido com sucesso!")
-        return True
+                
+        return f"Livro devolvido com sucesso!"

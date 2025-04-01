@@ -7,9 +7,9 @@ from model.livro  import Livro
 
 class Livro_controller:
     
-    def  cadastrar_livro():
+    def  cadastrar_livro(titulo, autor, ano_publicacao, isbn, categoria):
         0
-    def pesquisar_livro():
+    def pesquisar_livro(tipo_pesquisa, descricao):
         0
     def listar_livro():
         0
