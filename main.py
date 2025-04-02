@@ -40,7 +40,7 @@ view_menu = """
     
     """
     
-acesso = ""
+acesso = Usuario("1","Ana Maria","anamaria@gmail.com","aluno")
 
 def main():
     
