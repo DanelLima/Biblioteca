@@ -32,7 +32,7 @@ view_menu = """
     
     1. Fazer Empréstimo
     2. Devolver Livro
-    3. Consultar Meus Empréstimos
+    3. Consultar todos os Empréstimos
     4. Doar um Livro
     5. Pesquisar e listar Livros
     6. Imprimir um relatório
@@ -67,7 +67,7 @@ def main():
         
     while True:
         
-        print(view_menu())
+        print(view_menu)
 
         opcao = input("Escolha uma opção: ")
 
