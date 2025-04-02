@@ -179,19 +179,32 @@ def escolher_relatorio():
         opcao = input("""Escolha seu tipo de relatório :
                       1 - Quantidade de livros por categoria;
                       2 - Quantidade de empréstimos por tipo de usuário;
-                      3 - livros mais emprestados.
+                      3 - livros mais emprestados;
+                      4 - Todos os relatórios.
                       """)
-
+    
+        relatorio = ReportGenerator()
+        
         if opcao == "1":
+            os.system("cls")
+            relatorio.generate_book_category_report()
             break
         elif opcao == "2":
+            os.system("cls")
+            relatorio.generate_loan_by_user_type_report()
             break
         elif opcao == "3":
+            os.system("cls")
+            relatorio.generate_most_loaned_books_report()
+            break
+        elif opcao == "4":
+            os.system("cls")
+            relatorio.generate_all_reports()
             break
         else:
             print("Opção inválida! Tente novamente.")
 
-        relatorio = ReportGenerator()
+        
         
 
 main()
