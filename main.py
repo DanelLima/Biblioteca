@@ -44,6 +44,8 @@ acesso = ""
 
 def main():
     
+    global acesso
+    
     if acesso == "":
         
         print(view_login)
