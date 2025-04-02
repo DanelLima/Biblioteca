@@ -1,1 +1,10 @@
 1;Ana Maria;anamaria@gmail.com;aluno
+2;Carlos Eduardo;carlosedu@gmail.com;professor
+3;Beatriz Souza;beatrizsouza@gmail.com;aluno
+4;Fernando Lima;fernandolima@gmail.com;visitante
+5;Juliana Castro;julianacastro@gmail.com;aluno
+6;Roberto Mendes;robertomendes@gmail.com;professor
+7;Mariana Oliveira;marianaoliveira@gmail.com;aluno
+8;André Silva;andresilva@gmail.com;visitante
+9;Luciana Alves;lucianaalves@gmail.com;aluno
+10;Ricardo Pereira;ricardopereira@gmail.com;professor

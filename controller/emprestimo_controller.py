@@ -11,10 +11,17 @@ class Emprestimo_controller:
     
     def emprestar(self, emprestimo):
         ultimo_id = 0
+        livros_emprestados = []
         with open(self.file_emprestimo, "r") as file:
             for linha in file:
                 linha_objeto = Emprestimo.from_string(linha)
                 ultimo_id = max(ultimo_id, int(linha_objeto.id))  # Encontra o último id 
+                if linha_objeto.situacao == "Emprestado":
+                    livros_emprestados.append(linha_objeto.id_livro) 
+        
+        if emprestimo.id_livro in livros_emprestados:
+            return "Livro já foi emprestado"
+        
         ultimo_id = ultimo_id + 1   
         emprestimo.id = ultimo_id
         
