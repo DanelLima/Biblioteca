@@ -8,3 +8,10 @@
 8;Harry Potter e a Pedra Filosofal;J.K. Rowling;1997;978-8532511010;Fantasia
 9;Orgulho e Preconceito;Jane Austen;1813;978-0199535569;Romance
 10;Memórias Póstumas de Brás Cubas;Machado de Assis;1881;978-8503018303;Realismo
+11;O Chamado de Cthulhu;H.P. Lovecraft;1928;978-8576572008;Horror Cósmico
+12;Nas Montanhas da Loucura;H.P. Lovecraft;1936;978-8537809145;Horror Cósmico
+13;O Horror de Dunwich;H.P. Lovecraft;1929;978-8525056691;Horror Cósmico
+14;Crime e Castigo;Fiódor Dostoiévski;1866;978-8537809146;Romance Psicológico
+15;Os Irmãos Karamázov;Fiódor Dostoiévski;1880;978-8525056708;Filosofia e Psicologia
+16;O Idiota;Fiódor Dostoiévski;1869;978-8501404250;Drama
+17;A Metamorfose;Franz Kafka;1915;978-8568014010;Existencialismo
