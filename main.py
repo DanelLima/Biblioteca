@@ -16,27 +16,29 @@ from datetime import datetime, timedelta
 view_login = """
 
     ******************************************************* LOGIN ********************************************************************
-    
-     Digite seu ID e digite seu email sepados por espaço para fazer login:
 
-     Caso não tenha cadastro digite 0 para cadastrar:
-     
-     Caso queira encerrar a aplicação digite 1 para finalizar: 
+    Escolha uma opção:
+    
+    0. Fazer cadastro
+    
+    1. Encerrar a aplicação
+    
+    2. Fazer login 
      
      """
     
     
 view_menu = """
      
-    ******************************************************* MENU ********************************************************************
+******************************************************* MENU ********************************************************************
     
-    1. Fazer Empréstimo
-    2. Devolver Livro
-    3. Consultar todos os Empréstimos
-    4. Doar um Livro
-    5. Pesquisar e listar Livros
-    6. Imprimir um relatório
-    7. Logout
+1. Fazer Empréstimo
+2. Devolver Livro
+3. Consultar todos os Empréstimos
+4. Doar um Livro
+5. Pesquisar e listar Livros
+6. Imprimir um relatório
+7. Logout
     
     """
     
@@ -48,22 +50,29 @@ def main():
     
     if acesso == "":
         
-        print(view_login)
-        login = input()
-        
-        os.system("cls")
-        
-        if login == "0":
-            cadastro_usuario()
+        while True:
+            login = input(view_login)
             
-        elif login == "1":
-            print("Aplicação encerrada!")
-            sys.exit()
+            if login == "0":
+                os.system("cls")
+                cadastro_usuario()
+                break
+                
+            elif login == "1":
+                os.system("cls")
+                print("Aplicação encerrada!")
+                sys.exit()
             
-        else:
-            id, email = login.split()
-            usuario = Usuario_controller()
-            acesso = usuario.logar_usuario(id,email) #Retorna um objeto Usuario
+            elif login == "2":
+                id = input("Digite seu id:")
+                email = input("Digite seu email:")
+                usuario = Usuario_controller()
+                acesso = usuario.logar_usuario(id,email) #Retorna um objeto Usuario
+                break
+                
+            else:
+                print("Opção inválida! Tente novamente.")
+            
         
     while True:
         
@@ -176,14 +185,15 @@ def pesquisar_livro(acesso):
 def escolher_relatorio():
     print('************************************************ Relatórios *****************************************************************')
     while True:
-        opcao = input("""Escolha seu tipo de relatório :
-                      1 - Quantidade de livros por categoria;
-                      2 - Quantidade de empréstimos por tipo de usuário;
-                      3 - livros mais emprestados;
-                      4 - Todos os relatórios.
-                      """)
+        opcao = input("""
+    Escolha seu tipo de relatório :
+    1 - Quantidade de livros por categoria;
+    2 - Quantidade de empréstimos por tipo de usuário;
+    3 - livros mais emprestados;
+    4 - Todos os relatórios.
+        """)
     
-        relatorio = ReportGenerator()
+        relatorio = ReportGenerator(Livro_controller, Usuario_controller, Emprestimo_controller)
         
         if opcao == "1":
             os.system("cls")
