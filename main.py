@@ -6,7 +6,7 @@ import sys
 
 from controller.emprestimo_controller import Emprestimo_controller
 from model.emprestimo import Emprestimo
-from controller.usuario_controller import Usuario_controller
+from controller.usuario_controller import Usuario_Controller
 from model.usuario import Usuario
 from controller.livro_controller import Livro_controller
 from model.livro import Livro
@@ -42,7 +42,7 @@ view_menu = """
     
     """
     
-acesso = Usuario("1","Ana Maria","anamaria@gmail.com","aluno")
+acesso = ""
 
 def main():
     
@@ -66,7 +66,7 @@ def main():
             elif login == "2":
                 id = input("Digite seu id:")
                 email = input("Digite seu email:")
-                usuario = Usuario_controller()
+                usuario = Usuario_Controller()
                 acesso = usuario.logar_usuario(id,email) #Retorna um objeto Usuario
                 break
                 
@@ -113,7 +113,7 @@ def cadastro_usuario():
     email = input("Digite email:")
     tipo_usuario = input("Digite seu tipo de usuário (aluno/professor/visitante):")
     
-    usuario = Usuario_controller()
+    usuario = Usuario_Controller()
     resultado = usuario.cadastrar_usuario(nome,email,tipo_usuario)
     os.system("cls")
     print(resultado)
@@ -193,7 +193,7 @@ def escolher_relatorio():
     4 - Todos os relatórios.
         """)
     
-        relatorio = ReportGenerator(Livro_controller, Usuario_controller, Emprestimo_controller)
+        relatorio = ReportGenerator(Livro_controller, Usuario_Controller, Emprestimo_controller)
         
         if opcao == "1":
             os.system("cls")
