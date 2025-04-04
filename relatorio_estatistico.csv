@@ -1,0 +1,21 @@
+Categoria;Qtd de Livros
+Infanto-Juvenil;2
+Romance;2
+Distopia;1
+Fantasia;3
+Satírico;1
+Filosófico;1
+Realismo;1
+Horror Cósmico;3
+Romance Psicológico;1
+Filosofia e Psicologia;1
+Drama;1
+Existencialismo;1
+
+Tipo de Usuário;Qtd de Empréstimos
+professor;1
+aluno;3
+
+Livro;Autor;Qtd de Empréstimos
+Dom Casmurro;Machado de Assis;2
+Le Petit Prince;1943;2

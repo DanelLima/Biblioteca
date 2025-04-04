@@ -3,10 +3,17 @@ from model.usuario import Usuario
 
 class Usuario_Controller:
     def __init__(self):
-        self.arquivo = "usuarios.txt"  # Nome do arquivo onde os usuários serão armazenados
+        self.arquivo = "usuario.txt"  # Nome do arquivo onde os usuários serão armazenados
 
     def cadastrar_usuario(self, nome, email, tipo_usuario):
         """Registra um novo usuário no sistema."""
+        # Verifica se o  email já está em uso
+        with open(self.arquivo, "r", encoding="utf-8") as file:
+            for linha in file:
+                usuario = Usuario.from_string(linha)
+                if email == usuario.email:
+                    return "Email já cadastrado!"
+                
         if not nome or not email or not tipo_usuario:
             return "Erro: Todos os campos são obrigatórios!"
 

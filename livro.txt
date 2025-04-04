@@ -1,4 +1,4 @@
-1;Le Petit Prince;1943;978-0152465032;Infanto-Juvenil
+1;Le Petit Prince;1943;Antoine de Saint-Exupéry;978-0152465032;Infanto-Juvenil
 2;Dom Casmurro;Machado de Assis;1899;978-8508155165;Romance
 3;1984;George Orwell;1949;978-0451524935;Distopia
 4;O Hobbit;J.R.R. Tolkien;1937;978-0007440849;Fantasia
@@ -15,3 +15,4 @@
 15;Os Irmãos Karamázov;Fiódor Dostoiévski;1880;978-8525056708;Filosofia e Psicologia
 16;O Idiota;Fiódor Dostoiévski;1869;978-8501404250;Drama
 17;A Metamorfose;Franz Kafka;1915;978-8568014010;Existencialismo
+18;Diary of a Wimpy Kid;Jeff Kinney;2007;978-0008134365;Infanto-Juvenil

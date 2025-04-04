@@ -8,3 +8,6 @@
 8;André Silva;andresilva@gmail.com;visitante
 9;Luciana Alves;lucianaalves@gmail.com;aluno
 10;Ricardo Pereira;ricardopereira@gmail.com;professor
+11;daniel;daniel@gmail.com;aluno
+12;guilherme;gui@gmail.com;aluno
+13;Claudetter Morel;clauclau@gmail.com;visitante

@@ -15,17 +15,17 @@ from datetime import datetime, timedelta
 
 view_login = """
 
-    ******************************************************* LOGIN ********************************************************************
+******************************************************* LOGIN ********************************************************************
 
-    Escolha uma opção:
+Escolha uma opção:
+
+0. Fazer cadastro
+
+1. Encerrar a aplicação
+
+2. Fazer login 
     
-    0. Fazer cadastro
-    
-    1. Encerrar a aplicação
-    
-    2. Fazer login 
-     
-     """
+Escolha uma opção: """
     
     
 view_menu = """
@@ -37,7 +37,7 @@ view_menu = """
 3. Consultar todos os Empréstimos
 4. Doar um Livro
 5. Pesquisar e listar Livros
-6. Imprimir um relatório
+6. Imprimir as estatísticas em um relatório
 7. Logout
     
     """
@@ -67,43 +67,50 @@ def main():
                 id = input("Digite seu id:")
                 email = input("Digite seu email:")
                 usuario = Usuario_Controller()
+                os.system("cls")
                 acesso = usuario.logar_usuario(id,email) #Retorna um objeto Usuario
                 break
                 
             else:
                 print("Opção inválida! Tente novamente.")
             
-        
-    while True:
-        
-        print(view_menu)
+    if acesso != "Erro: ID ou e-mail incorretos!" and acesso != "Nenhum usuário cadastrado ainda!" and acesso != "":
+        while True:
+            
+            print(view_menu)
 
-        opcao = input("Escolha uma opção: ")
+            opcao = input("Escolha uma opção: ")
 
-        if opcao == "1":
-            os.system("cls")
-            fazer_emprestimo(acesso)
-        elif opcao == "2":
-            os.system("cls")
-            devolver_livro(acesso)
-        elif opcao == "3":
-            os.system("cls")
-            consultar_emprestimos(acesso)
-        elif opcao == "4":
-            os.system("cls")
-            cadastrar_livro(acesso)
-        elif opcao == "5":
-            os.system("cls")
-            pesquisar_livro()
-        elif opcao == "6":
-            os.system("cls")
-            escolher_relatorio()
-        elif opcao == "7":
-            print("Logout realizado.")
-            acesso = ""
-            break
-        else:
-            print("Opção inválida! Tente novamente.")
+            if opcao == "1":
+                os.system("cls")
+                fazer_emprestimo(acesso)
+            elif opcao == "2":
+                os.system("cls")
+                devolver_livro(acesso)
+            elif opcao == "3":
+                os.system("cls")
+                consultar_emprestimos(acesso)
+            elif opcao == "4":
+                os.system("cls")
+                cadastro_livro(acesso)
+            elif opcao == "5":
+                os.system("cls")
+                pesquisar_livro()
+            elif opcao == "6":
+                os.system("cls")
+                relatorio()
+            elif opcao == "7":
+                os.system("cls")
+                print("Logout realizado.")
+                acesso = ""
+                break
+            else:
+                print("Opção inválida! Tente novamente.")
+                
+    else:
+        print(acesso)
+        acesso = ""
+        print("Faça login para acessar!")
             
     main()
                 
@@ -159,63 +166,80 @@ def consultar_emprestimos(acesso):
     for i in emprestimos:
         print(i)
 
-def pesquisar_livro(acesso):
+def pesquisar_livro():
     print('************************************************ Pesquisar livro ***************************************************************')
     
     while True:
-        opcao = input("Selecione qual pesquisa realizar (1: título / 2: autor / 3: categoria)")
-
-        if opcao == "1":
-            break
-        elif opcao == "2":
-            break
-        elif opcao == "3":
-            break
-        else:
-            print("Opção inválida! Tente novamente.")
-    descricao = input("Digite a pesquisa:")
-    
-    livro = Livro_controller()
-    resultado = livro.pesquisar_livro(tipo_pesquisa, descricao)
-    
-    os.system("cls")
-    print(resultado)
-    
-    
-def escolher_relatorio():
-    print('************************************************ Relatórios *****************************************************************')
-    while True:
         opcao = input("""
-    Escolha seu tipo de relatório :
-    1 - Quantidade de livros por categoria;
-    2 - Quantidade de empréstimos por tipo de usuário;
-    3 - livros mais emprestados;
-    4 - Todos os relatórios.
-        """)
+                      
+    Selecione qual opção realizar: 
+    1. Pesquisar por (1: título / 2: autor / 3: categoria)
+    2. Listar todos os livros
     
-        relatorio = ReportGenerator(Livro_controller, Usuario_Controller, Emprestimo_controller)
-        
+                      """)
+
         if opcao == "1":
-            os.system("cls")
-            relatorio.generate_book_category_report()
+            opcao_pesquisa = input(""" 
+                                   
+            Escolha a pesquisa:
+            1. título
+            2. autor
+            3. categoria
+            
+                                   """)
+            
+            descricao = input("Digite a pesquisa:")
+            
+            if opcao_pesquisa == "1":
+                livro = Livro_controller()
+                resultado = livro.pesquisar_livro("titulo", descricao)
+                os.system("cls")
+                print("Resultado da pesquisa:")
+                for i in resultado:
+                    print(i)
+                break
+                
+            elif opcao_pesquisa == "2":
+                livro = Livro_controller()
+                resultado = livro.pesquisar_livro("autor", descricao)
+                os.system("cls")
+                print("Resultado da pesquisa:")
+                for i in resultado:
+                    print(i)
+                break
+            
+            elif opcao_pesquisa == "3":
+                livro = Livro_controller()
+                resultado = livro.pesquisar_livro("categoria", descricao)
+                os.system("cls")
+                print("Resultado da pesquisa:")
+                for i in resultado:
+                    print(i)
+                break
+            
+            else:
+                print("Opção inválida! Tente novamente.")
             break
+        
         elif opcao == "2":
+            livro = Livro_controller()
+            livros = livro.listar_livro()
             os.system("cls")
-            relatorio.generate_loan_by_user_type_report()
+            print('********************************************* Todos os Livros **************************************************************')
+            for i in livros:
+                print(i)
             break
-        elif opcao == "3":
-            os.system("cls")
-            relatorio.generate_most_loaned_books_report()
-            break
-        elif opcao == "4":
-            os.system("cls")
-            relatorio.generate_all_reports()
-            break
+        
         else:
             print("Opção inválida! Tente novamente.")
-
-        
-        
+    
+    
+def relatorio():
+    print('************************************************ Estatísticas *****************************************************************')
+    relatorio = ReportGenerator()
+    resultado = relatorio.gerar_relatorio()
+    print(resultado)
+    print("Arquivo csv criado para relatório!")
 
 main()
 

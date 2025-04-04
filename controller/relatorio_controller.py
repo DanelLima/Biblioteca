@@ -3,47 +3,71 @@
 # Função Buscar livros mais emprestados
 
 import csv
+import os
 from collections import Counter
+from collections import defaultdict
 
 class ReportGenerator:
-    def __init__(self, book_model, user_model, loan_model):
-        self.book_model = book_model
-        self.user_model = user_model
-        self.loan_model = loan_model
-    
-    def generate_book_category_report(self, file_path="book_category_report.csv"):
-        categories = [book["categoria"] for book in self.book_model.get_all_books()]
-        category_count = Counter(categories)
-        
-        with open(file_path, "w", newline="", encoding="utf-8") as file:
-            writer = csv.writer(file)
-            writer.writerow(["Categoria", "Quantidade"])
-            for category, count in category_count.items():
-                writer.writerow([category, count])
-    
-    def generate_loan_by_user_type_report(self, file_path="loan_by_user_type.txt"):
-        user_types = [self.user_model.get_user(loan.id_usuario).tipo for loan in self.loan_model.get_all_loans()]
-        type_count = Counter(user_types)
-        
-        with open(file_path, "w", encoding="utf-8") as file:
-            file.write("Relatório de Empréstimos por Tipo de Usuário\n")
-            file.write("======================================\n")
-            for user_type, count in type_count.items():
-                file.write(f"{user_type}: {count} empréstimos\n")
-    
-    def generate_most_loaned_books_report(self, file_path="most_loaned_books.csv"):
-        book_ids = [loan.id_livro for loan in self.loan_model.get_all_loans()]
-        book_count = Counter(book_ids)
-        
-        with open(file_path, "w", newline="", encoding="utf-8") as file:
-            writer = csv.writer(file)
-            writer.writerow(["Título", "Autor", "ISBN", "Quantidade de Empréstimos"])
-            for book_id, count in book_count.most_common():
-                book = self.book_model.get_book(book_id)
-                writer.writerow([book["titulo"], book["autor"], book["isbn"], count])
-    
-    def generate_all_reports(self):
-        self.generate_book_category_report()
-        self.generate_loan_by_user_type_report()
-        self.generate_most_loaned_books_report()
-        print("Relatórios gerados com sucesso!")
+    def gerar_relatorio(self):
+        # Lê os arquivos
+        with open("usuario.txt", encoding="utf-8") as f:
+            usuarios = {u.split(";")[0]: u.strip().split(";") for u in f if u.strip()}
+
+        with open("livro.txt", encoding="utf-8") as f:
+            livros = {l.split(";")[0]: l.strip().split(";") for l in f if l.strip()}
+
+        with open("emprestimo.txt", encoding="utf-8") as f:
+            emprestimos = [e.strip().split(";") for e in f if e.strip()]
+
+        # Estatísticas 
+
+        # Quantidade de livros por categoria
+        livros_por_categoria = defaultdict(set)
+        for livro in livros.values():
+            categoria = livro[5]
+            livros_por_categoria[categoria].add(livro[0])  # id do livro
+
+        # Quantidade de empréstimos por tipo de usuário
+        emprestimos_por_tipo_usuario = defaultdict(int)
+        for emp in emprestimos:
+            id_usuario = emp[2]
+            tipo = usuarios.get(id_usuario, ["", "", "", "Desconhecido"])[3]
+            emprestimos_por_tipo_usuario[tipo] += 1
+
+        # Livros mais emprestados
+        contador_livros = Counter(emp[1] for emp in emprestimos)
+        livros_mais_emprestados = contador_livros.most_common(5)
+
+        # relatório string
+        relatorio = "*************** RELATÓRIO ESTATÍSTICO ***************\n\n"
+
+        relatorio += "Quantidade de livros por categoria:\n"
+        for categoria, ids in livros_por_categoria.items():
+            relatorio += f" - {categoria}: {len(ids)} livros\n"
+
+        relatorio += "\nQuantidade de empréstimos por tipo de usuário:\n"
+        for tipo, qtd in emprestimos_por_tipo_usuario.items():
+            relatorio += f" - {tipo}: {qtd} empréstimos\n"
+
+        relatorio += "\nLivros mais emprestados:\n"
+        for id_livro, qtd in livros_mais_emprestados:
+            livro = livros.get(id_livro, ["", "Desconhecido", "Autor desconhecido"])
+            relatorio += f" - {livro[1]} por {livro[2]}: {qtd} empréstimos\n"
+
+        # Salvando em CSV
+        with open("relatorio_estatistico.csv", "w", newline="", encoding="utf-8") as csvfile:
+            writer = csv.writer(csvfile, delimiter=';')
+            writer.writerow(["Categoria", "Qtd de Livros"])
+            for categoria, ids in livros_por_categoria.items():
+                writer.writerow([categoria, len(ids)])
+            writer.writerow([])
+            writer.writerow(["Tipo de Usuário", "Qtd de Empréstimos"])
+            for tipo, qtd in emprestimos_por_tipo_usuario.items():
+                writer.writerow([tipo, qtd])
+            writer.writerow([])
+            writer.writerow(["Livro", "Autor", "Qtd de Empréstimos"])
+            for id_livro, qtd in livros_mais_emprestados:
+                livro = livros.get(id_livro, ["", "Desconhecido", "Autor desconhecido"])
+                writer.writerow([livro[1], livro[2], qtd])
+
+        return relatorio

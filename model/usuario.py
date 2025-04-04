@@ -9,6 +9,9 @@ class Usuario:
         self._nome = nome  
         self._email = email
         self._tipo_usuario = tipo_usuario
+        
+    def __str__(self):
+        return f"{self.id} {self.email} {self.nome} {self.tipo_usuario}"
 
     @property
     def id(self):
